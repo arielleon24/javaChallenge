@@ -6,25 +6,23 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-/**
- * Hello world!
- *
- */
 public class App {
 
-    private static final String GET_API_URL = "http://localhost:8080/balance?acctnum=1234567";
+    private static final String URL = "http://localhost:8080/balance?acctnum=1234567";
 
     public static void main( String[] args ) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .header( "accept", "application/json")
-                .uri(URI.create(GET_API_URL))
+                .uri(URI.create(URL))
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        System.out.println("before response");
-        System.out.println(response.body());
-        System.out.println("Response should be returned");
+        System.out.println("status:" + response.statusCode());
+//        System.out.println("response:" + response.body());
+//        String json = response.body();
+        Object o = response.body();
+        System.out.println(o);
     }
 }
