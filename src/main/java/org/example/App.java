@@ -25,12 +25,11 @@ public class App {
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        System.out.println("status:" + response.statusCode());
-        System.out.println("status:" + response.body());
+        System.out.println("statusCode is:" + response.statusCode());
         String json = response.body();
         Account account1 = gson.fromJson(json, Account.class);
 
-        System.out.println("this is result " + account1.getBalance());
+        System.out.println("this is result " + account1.getBalance() +"$");
 
     }
 }
