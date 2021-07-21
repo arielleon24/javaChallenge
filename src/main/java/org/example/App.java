@@ -1,5 +1,6 @@
 package org.example;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 
 import java.io.IOException;
 import java.net.URI;
@@ -9,11 +10,14 @@ import java.net.http.HttpResponse;
 
 public class App {
 
-    Gson gson = new Gson();
+
 
     private static final String URL = "http://localhost:8080/balance?acctnum=1234567";
     public static void main( String[] args ) throws IOException, InterruptedException {
+        Gson gson = new Gson();
+
         HttpClient client = HttpClient.newHttpClient();
+
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .header( "accept", "application/json")
@@ -24,7 +28,9 @@ public class App {
         System.out.println("status:" + response.statusCode());
         System.out.println("status:" + response.body());
         String json = response.body();
+        Account account1 = gson.fromJson(json, Account.class);
 
+        System.out.println("this is result " + account1.getBalance());
 
     }
 }
